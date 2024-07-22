@@ -1,3 +1,4 @@
+// src/components/ChatContainer.jsx
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
@@ -5,8 +6,10 @@ import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import { useTheme } from "../ThemeContext";
 
 export default function ChatContainer({ currentChat, socket }) {
+  const { theme } = useTheme();
   const [messages, setMessages] = useState([]);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -70,7 +73,7 @@ export default function ChatContainer({ currentChat, socket }) {
   }, [messages]);
 
   return (
-    <Container>
+    <Container theme={theme}>
       <div className="chat-header">
         <div className="user-details">
           <div className="avatar">
@@ -112,69 +115,80 @@ const Container = styled.div`
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
-  @media screen and (min-width: 720px) and (max-width: 1080px) {
-    grid-template-rows: 15% 70% 15%;
-  }
+  background-color: ${({ theme }) => (theme === 'dark' ? '#1c1c1c' : '#f9f9f9')};
+
   .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    background-color: ${({ theme }) => (theme === 'dark' ? '#333' : '#ddd')};
+
     .user-details {
       display: flex;
       align-items: center;
       gap: 1rem;
+
       .avatar {
         img {
           height: 3rem;
         }
       }
+
       .username {
         h3 {
-          color: white;
+          color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
         }
       }
     }
   }
+
   .chat-messages {
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     overflow: auto;
+    background-color: ${({ theme }) => (theme === 'dark' ? '#2e2e2e' : '#ffffff')};
+
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: ${({ theme }) => (theme === 'dark' ? '#555' : '#ccc')};
         width: 0.1rem;
         border-radius: 1rem;
       }
     }
+
     .message {
       display: flex;
       align-items: center;
+
       .content {
         max-width: 40%;
         overflow-wrap: break-word;
         padding: 1rem;
         font-size: 1.1rem;
         border-radius: 1rem;
-        color: #d1d1d1;
+        color: ${({ theme }) => (theme === 'dark' ? '#d1d1d1' : '#333')};
+
         @media screen and (min-width: 720px) and (max-width: 1080px) {
           max-width: 70%;
         }
       }
     }
+
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: ${({ theme }) => (theme === 'dark' ? '#4f04ff21' : '#4f04ff40')};
       }
     }
+
     .recieved {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: ${({ theme }) => (theme === 'dark' ? '#9900ff20' : '#9900ff40')};
       }
     }
   }

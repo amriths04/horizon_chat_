@@ -1,14 +1,19 @@
+// src/pages/Register.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoutes";
+import { useTheme } from "../ThemeContext";
+import Switch from "react-switch";
 
 export default function Register() {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
+  const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
+  
   const toastOptions = {
     position: "bottom-right",
     autoClose: 8000,
@@ -27,7 +32,7 @@ export default function Register() {
     if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -84,41 +89,56 @@ export default function Register() {
     }
   };
 
+  const handleThemeToggle = () => {
+    setIsDarkMode(!isDarkMode);
+    toggleTheme();
+  };
+
   return (
     <>
-      <FormContainer>
-        <form action="" onSubmit={(event) => handleSubmit(event)}>
+      <FormContainer theme={theme}>
+        <div className="theme-toggle">
+          <span>{isDarkMode ? "🌙" : "☀️"}</span>
+          <Switch
+            onChange={handleThemeToggle}
+            checked={isDarkMode}
+            offColor="#bbb"
+            onColor="#000"
+            checkedIcon={false}
+            uncheckedIcon={false}
+          />
+        </div>
+        <form onSubmit={handleSubmit}>
           <div className="brand">
-            {/*<img src={Logo} alt="logo" />*/}
-          <h1></h1>
+            <h1>HorizonChat</h1>
           </div>
           <input
             type="text"
             placeholder="Username"
             name="username"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <input
             type="email"
             placeholder="Email"
             name="email"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Password"
             name="password"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <input
             type="password"
             placeholder="Confirm Password"
             name="confirmPassword"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
           />
           <button type="submit">Create User</button>
           <span>
-            Already have an account ? <Link to="/login">Login.</Link>
+            Already have an account? <Link to="/login">Login.</Link>
           </span>
         </form>
       </FormContainer>
@@ -135,17 +155,26 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: ${({ theme }) => (theme === 'dark' ? '#131324' : 'white')};
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+
+    gap: 1rem;
+    margin-bottom: 2rem;
+    span {
+      font-size: 1.5rem;
+    }
+  }
+
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
-    img {
-      height: 5rem;
-    }
     h1 {
-      color: white;
+      color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
       text-transform: uppercase;
     }
   }
@@ -154,23 +183,25 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background-color: #00000076;
+    background-color: ${({ theme }) => (theme === 'dark' ? '#00000076' : '#f0f0f0')};
     border-radius: 2rem;
     padding: 3rem 5rem;
   }
+
   input {
     background-color: transparent;
     padding: 1rem;
-    border: 0.1rem solid #4e0eff;
+    border: 0.1rem solid ${({ theme }) => (theme === 'dark' ? '#4e0eff' : '#333')};
     border-radius: 0.4rem;
-    color: white;
+    color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
     width: 100%;
     font-size: 1rem;
     &:focus {
-      border: 0.1rem solid #997af0;
+      border: 0.1rem solid ${({ theme }) => (theme === 'dark' ? '#997af0' : '#333')};
       outline: none;
     }
   }
+
   button {
     background-color: #4e0eff;
     color: white;
@@ -185,8 +216,9 @@ const FormContainer = styled.div`
       background-color: #4e0eff;
     }
   }
+
   span {
-    color: white;
+    color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
     text-transform: uppercase;
     a {
       color: #4e0eff;
