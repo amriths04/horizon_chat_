@@ -1,13 +1,13 @@
-// src/components/Welcome.jsx
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import Robot from "../assets/robot.gif";
-import { useTheme } from "../ThemeContext";
-import Logout from "./Logout"; // Assuming Logout is a component you have
+import { useTheme } from "../ThemeContext"; // Import the useTheme hook
 
 export default function Welcome() {
   const [userName, setUserName] = useState("");
   const { theme } = useTheme(); // Get the current theme
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -19,16 +19,18 @@ export default function Welcome() {
     fetchUserName();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem(process.env.REACT_APP_LOCALHOST_KEY);
+    navigate("/login");
+  };
+
   return (
     <Container theme={theme}>
-      <LogoutButton>
-        <Logout />
-      </LogoutButton>
       <img src={Robot} alt="" />
       <h1>
         Welcome, <span>{userName}!</span>
       </h1>
-      <h3>Please select a chat to Start messaging.</h3>
+      <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </Container>
   );
 }
@@ -39,7 +41,6 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
-  position: relative; /* Ensure the logout button can be positioned absolutely */
 
   img {
     height: 20rem;
@@ -54,20 +55,16 @@ const Container = styled.div`
   }
 `;
 
-const LogoutButton = styled.div`
-  position: absolute;
-  top: 0.5rem; /* Adjust as needed */
-  right: 1rem; /* Adjust as needed */
-  background-color: ${({ theme }) => (theme === 'dark' ? '#333' : '#eee')};
-  border-radius: 50%;
-  padding: 0.5rem;
-  box-shadow: 0 0 5px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
+const LogoutButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
+  background-color: ${({ theme }) => (theme === 'dark' ? '#4e0eff' : '#f0f0f0')};
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-
-  svg {
-    width: 1rem; /* Adjust size as needed */
-    height: 1rem; /* Adjust size as needed */
-    color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
+  &:hover {
+    background-color: ${({ theme }) => (theme === 'dark' ? '#3a0ccf' : '#e0e0e0')};
   }
 `;
-

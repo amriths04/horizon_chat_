@@ -72,22 +72,24 @@ export default function Chat() {
 
   return (
     <Container theme={theme}>
-      <div className="theme-toggle">
-        <span>{isDarkMode ? "🌙" : "☀️"}</span>
-        <Switch
-          onChange={handleThemeToggle}
-          checked={isDarkMode}
-          offColor="#bbb"
-          onColor="#000"
-          checkedIcon={false}
-          uncheckedIcon={false}
-        />
-      </div>
-      {currentChat !== undefined && (
-        <div className="go-to-welcome">
-          <FontAwesomeIcon icon={faTimes} onClick={handleCloseClick} />
+      <div className="controls">
+        <div className="theme-toggle">
+          <span>{isDarkMode ? "🌚" : "☀️"}</span>
+          <Switch
+            onChange={handleThemeToggle}
+            checked={isDarkMode}
+            offColor="#bbb"
+            onColor="#000"
+            checkedIcon={false}
+            uncheckedIcon={false}
+          />
         </div>
-      )}
+        {currentChat !== undefined && (
+          <div className="go-to-welcome">
+            <FontAwesomeIcon icon={faTimes} onClick={handleCloseClick} />
+          </div>
+        )}
+      </div>
       <div className="chat-wrapper">
         <Contacts contacts={contacts} changeChat={handleChatChange} />
         {currentChat === undefined ? (
@@ -104,21 +106,26 @@ const Container = styled.div`
   height: 100vh;
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => (theme === 'dark' ? '#131324' : 'white')};
 
-  .theme-toggle {
+  .controls {
     position: absolute;
-    top: 1.7rem;
-    right: 7.7rem;
+    top: 0.7rem;
+    right: 1rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 4rem;
+    z-index: 10;
+  }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    box-shadow: 0 0 1px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
-    z-index: 10;
 
     span {
       font-size: 1.5rem;
@@ -127,15 +134,11 @@ const Container = styled.div`
   }
 
   .go-to-welcome {
-    position: absolute;
-    top: 1.7rem;
-    left: 74rem; /* Adjusted for better placement */
+    position:relative;
+    right: 12.5rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    box-shadow: 0 0 1px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
+    gap: 4rem;
     z-index: 10;
 
     svg {
@@ -146,8 +149,8 @@ const Container = styled.div`
   }
 
   .chat-wrapper {
-    height: 95vh;
-    width: 95vw;
+    height: 100vh;
+    width: 100vw;
     background-color: ${({ theme }) => (theme === 'dark' ? '#00000076' : '#f0f0f0')};
     display: grid;
     grid-template-columns: 25% 75%;

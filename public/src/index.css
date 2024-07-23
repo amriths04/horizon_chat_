@@ -5,11 +5,18 @@
   padding: 0;
   box-sizing: border-box;
 }
+@font-face {
+  font-family: 'Dune_Rise';
+  src: url('/public/fonts/Dune_Rise.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 
 body,
 button,
 input {
-  font-family: "Josefin Sans", sans-serif;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {

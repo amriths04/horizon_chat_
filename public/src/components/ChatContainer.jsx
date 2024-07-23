@@ -115,6 +115,7 @@ const Container = styled.div`
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
+  
   background-color: ${({ theme }) => (theme === 'dark' ? '#1c1c1c' : '#f9f9f9')};
 
   .chat-header {
@@ -147,7 +148,7 @@ const Container = styled.div`
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5  rem;
     overflow: auto;
     background-color: ${({ theme }) => (theme === 'dark' ? '#2e2e2e' : '#ffffff')};
 

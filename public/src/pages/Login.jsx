@@ -137,6 +137,7 @@ const FormContainer = styled.div`
     gap: 1rem;
     justify-content: center;
     h1 {
+    font-family: 'Dune_Rise', sans-serif;
       color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
       text-transform: uppercase;
     }
