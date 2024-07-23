@@ -56,7 +56,7 @@ const Container = styled.div`
 
 const LogoutButton = styled.div`
   position: absolute;
-  top: 1rem; /* Adjust as needed */
+  top: 0.5rem; /* Adjust as needed */
   right: 1rem; /* Adjust as needed */
   background-color: ${({ theme }) => (theme === 'dark' ? '#333' : '#eee')};
   border-radius: 50%;
@@ -65,8 +65,8 @@ const LogoutButton = styled.div`
   cursor: pointer;
 
   svg {
-    width: 1.5rem; /* Adjust size as needed */
-    height: 1.5rem; /* Adjust size as needed */
+    width: 1rem; /* Adjust size as needed */
+    height: 1rem; /* Adjust size as needed */
     color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
   }
 `;

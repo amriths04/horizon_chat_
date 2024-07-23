@@ -1,4 +1,3 @@
-// src/pages/Chat.jsx
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +9,8 @@ import Contacts from "../components/Contacts";
 import Welcome from "../components/Welcome";
 import { useTheme } from "../ThemeContext";
 import Switch from "react-switch";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -65,6 +66,10 @@ export default function Chat() {
     toggleTheme();
   };
 
+  const handleCloseClick = () => {
+    setCurrentChat(undefined); // Ensure current chat is cleared
+  };
+
   return (
     <Container theme={theme}>
       <div className="theme-toggle">
@@ -78,6 +83,11 @@ export default function Chat() {
           uncheckedIcon={false}
         />
       </div>
+      {currentChat !== undefined && (
+        <div className="go-to-welcome">
+          <FontAwesomeIcon icon={faTimes} onClick={handleCloseClick} />
+        </div>
+      )}
       <div className="chat-wrapper">
         <Contacts contacts={contacts} changeChat={handleChatChange} />
         {currentChat === undefined ? (
@@ -100,20 +110,38 @@ const Container = styled.div`
 
   .theme-toggle {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.7rem;
+    right: 7.7rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: ${({ theme }) => (theme === 'dark' ? '#1f1f1f' : '#e0e0e0')};
     border-radius: 0.5rem;
     padding: 0.5rem;
-    box-shadow: 0 0 5px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
+    box-shadow: 0 0 1px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
     z-index: 10;
 
     span {
       font-size: 1.5rem;
       color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
+    }
+  }
+
+  .go-to-welcome {
+    position: absolute;
+    top: 1.7rem;
+    left: 74rem; /* Adjusted for better placement */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    box-shadow: 0 0 1px ${({ theme }) => (theme === 'dark' ? '#000' : '#ccc')};
+    z-index: 10;
+
+    svg {
+      color: red; /* Red color for the close icon */
+      cursor: pointer;
+      font-size: 2rem; /* Adjust icon size if needed */
     }
   }
 
