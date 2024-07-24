@@ -1,4 +1,3 @@
-// // src/components/ThemeToggle.jsx
 // import React from 'react';
 // import Switch from 'react-switch';
 // import styled from 'styled-components';

@@ -68,22 +68,15 @@ const Container = styled.div`
       position: relative;
       svg {
         font-size: 1.5rem;
-        color: ${({ theme }) => (theme === 'dark' ? '#ffff00c8' : '#333')};
+        color: ${({ theme }) => (theme === 'dark' ? '#0B93F6' : '#333')};
         cursor: pointer;
       }
       .emoji-picker-react {
         position: absolute;
         top: -350px;
-        background-color: ${({ theme }) => (theme === 'dark' ? '#080420' : '#fff')};
-        box-shadow: 0 5px 10px #9a86f3;
-        border-color: #9a86f3;
-        .emoji-scroll-wrapper::-webkit-scrollbar {
-          background-color: ${({ theme }) => (theme === 'dark' ? 'white' : '#fff')};
-          width: 5px;
-          &-thumb {
-            background-color: #9a86f3;
-          }
-        }
+        background-color: ${({ theme }) => (theme === 'dark' ?'#0B93F6' : '#fff')};
+        box-shadow: 0 5px 5px #0B93F6;
+        border-color: #0B93F6;
         .emoji-categories {
           button {
             filter: contrast(0);
@@ -91,7 +84,7 @@ const Container = styled.div`
         }
         .emoji-search {
           background-color: transparent;
-          border-color: #9a86f3;
+          border-color: #0B93F6;
         }
         .emoji-group:before {
           background-color: transparent;
@@ -127,7 +120,7 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #9a86f3;
+      background-color: #0B93F6;
       border: none;
       @media screen and (min-width: 720px) and (max-width: 1080px) {
         padding: 0.3rem 1rem;

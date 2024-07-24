@@ -23,14 +23,11 @@ export default function Chat() {
 
   useEffect(() => {
     const checkUser = async () => {
-      if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
+      const user = localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY);
+      if (!user) {
         navigate("/login");
       } else {
-        setCurrentUser(
-          await JSON.parse(
-            localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-          )
-        );
+        setCurrentUser(await JSON.parse(user));
       }
     };
     checkUser();
@@ -45,13 +42,11 @@ export default function Chat() {
 
   useEffect(() => {
     const getContacts = async () => {
-      if (currentUser) {
-        if (currentUser.isAvatarImageSet) {
-          const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-          setContacts(data.data);
-        } else {
-          navigate("/setAvatar");
-        }
+      if (currentUser && currentUser.isAvatarImageSet) {
+        const { data } = await axios.get(`${allUsersRoute}/${currentUser._id}`);
+        setContacts(data);
+      } else if (currentUser && !currentUser.isAvatarImageSet) {
+        navigate("/setAvatar");
       }
     };
     getContacts();
@@ -67,7 +62,17 @@ export default function Chat() {
   };
 
   const handleCloseClick = () => {
-    setCurrentChat(undefined); // Ensure current chat is cleared
+    setCurrentChat(undefined); // Clear current chat
+  };
+
+  const clearCurrentChat = () => {
+    setCurrentChat(undefined);
+  };
+
+  const handleLogout = async () => {
+    localStorage.removeItem(process.env.REACT_APP_LOCALHOST_KEY);
+    socket.current.disconnect();
+    navigate("/login");
   };
 
   return (
@@ -89,9 +94,10 @@ export default function Chat() {
             <FontAwesomeIcon icon={faTimes} onClick={handleCloseClick} />
           </div>
         )}
+        <button onClick={handleLogout} className="logout-button">Logout</button>
       </div>
       <div className="chat-wrapper">
-        <Contacts contacts={contacts} changeChat={handleChatChange} />
+        <Contacts contacts={contacts} changeChat={handleChatChange} currentChat={currentChat} clearCurrentChat={clearCurrentChat} />
         {currentChat === undefined ? (
           <Welcome />
         ) : (
@@ -116,7 +122,7 @@ const Container = styled.div`
     right: 1rem;
     display: flex;
     align-items: center;
-    gap: 4rem;
+    gap: 2rem;
     z-index: 10;
   }
 
@@ -134,17 +140,30 @@ const Container = styled.div`
   }
 
   .go-to-welcome {
-    position:relative;
-    right: 12.5rem;
     display: flex;
     align-items: center;
-    gap: 4rem;
+    gap: 1rem; /* Adjusted gap to avoid large spaces */
     z-index: 10;
 
     svg {
       color: red; /* Red color for the close icon */
       cursor: pointer;
       font-size: 2rem; /* Adjust icon size if needed */
+    }
+  }
+
+  .logout-button {
+    background-color: red;
+    color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: ${({ theme }) => (theme === 'dark' ? 'black' : 'white')};
     }
   }
 

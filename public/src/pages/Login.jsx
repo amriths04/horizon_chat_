@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
@@ -73,7 +72,7 @@ export default function Login() {
     <>
       <FormContainer theme={theme}>
         <div className="theme-toggle">
-          <span>{isDarkMode ? "🌙" : "☀️"}</span>
+          <span>{isDarkMode ? "🌚" : "🌞"}</span>
           <Switch
             onChange={handleThemeToggle}
             checked={isDarkMode}
@@ -155,7 +154,7 @@ const FormContainer = styled.div`
   input {
     background-color: transparent;
     padding: 1rem;
-    border: 0.1rem solid ${({ theme }) => (theme === 'dark' ? '#4e0eff' : '#333')};
+    border: 0.1rem solid ${({ theme }) => (theme === 'dark' ? '#0B93F6' : '#333')};
     border-radius: 0.4rem;
     color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
     width: 100%;
@@ -167,7 +166,7 @@ const FormContainer = styled.div`
   }
 
   button {
-    background-color: #4e0eff;
+    background-color: #0B93F6;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -177,7 +176,7 @@ const FormContainer = styled.div`
     font-size: 1rem;
     text-transform: uppercase;
     &:hover {
-      background-color: #4e0eff;
+      background-color: #353a3d;
     }
   }
 
@@ -185,7 +184,7 @@ const FormContainer = styled.div`
     color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
     text-transform: uppercase;
     a {
-      color: #4e0eff;
+      color: #0B93F6;
       text-decoration: none;
       font-weight: bold;
     }

@@ -1,14 +1,12 @@
-// src/components/Contacts.jsx
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
 import { useTheme } from "../ThemeContext";
 
-export default function Contacts({ contacts, changeChat }) {
+export default function Contacts({ contacts, changeChat, currentChat, clearCurrentChat }) {
   const { theme } = useTheme();
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
-  const [currentSelected, setCurrentSelected] = useState(undefined);
 
   useEffect(async () => {
     const data = await JSON.parse(
@@ -19,9 +17,14 @@ export default function Contacts({ contacts, changeChat }) {
   }, []);
 
   const changeCurrentChat = (index, contact) => {
-    setCurrentSelected(index);
     changeChat(contact);
   };
+
+  useEffect(() => {
+    if (currentChat === undefined) {
+      clearCurrentChat();
+    }
+  }, [currentChat, clearCurrentChat]);
 
   return (
     <>
@@ -37,7 +40,7 @@ export default function Contacts({ contacts, changeChat }) {
                 <div
                   key={contact._id}
                   className={`contact ${
-                    index === currentSelected ? "selected" : ""
+                    currentChat?._id === contact._id ? "selected" : ""
                   }`}
                   onClick={() => changeCurrentChat(index, contact)}
                 >
@@ -98,6 +101,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     overflow: auto;
+    border-radius: 1.5rem;
     gap: 0.8rem;
 
     &::-webkit-scrollbar {
@@ -112,10 +116,10 @@ const Container = styled.div`
 
     .contact {
       background-color: ${({ theme }) => (theme === 'dark' ? '#333' : '#ddd')};
-      min-height: 5rem;
+      min-height: 2rem;
       cursor: pointer;
       width: 90%;
-      border-radius: 0.2rem;
+      border-radius: 25px;
       padding: 0.4rem;
       display: flex;
       gap: 1rem;
@@ -136,7 +140,7 @@ const Container = styled.div`
     }
 
     .selected {
-      background-color: ${({ theme }) => (theme === 'dark' ? '#9a86f3' : '#8a2be2')};
+      background-color: ${({ theme }) => (theme === 'dark' ? '#0B93F6' : '#0B93F6')};
     }
   }
 
