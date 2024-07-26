@@ -78,7 +78,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: ${({ theme }) => (theme === 'dark' ? '#0a0a2a' : '#f0f0f0')};
+  background-color: ${({ theme }) => (theme === 'dark' ? '#000000' : '#f0f0f0')};
 
   .brand {
     display: flex;
@@ -87,7 +87,7 @@ const Container = styled.div`
     justify-content: center;
 
     img {
-      height: 2rem;
+      height: 3.4rem;
     }
 
     h3 {
@@ -103,7 +103,7 @@ const Container = styled.div`
     overflow: auto;
     border-radius: 1.5rem;
     gap: 0.8rem;
-
+  
     &::-webkit-scrollbar {
       width: 0.2rem;
 
@@ -119,13 +119,16 @@ const Container = styled.div`
       min-height: 2rem;
       cursor: pointer;
       width: 90%;
-      border-radius: 25px;
+      border-radius: 30px;
       padding: 0.4rem;
       display: flex;
       gap: 1rem;
       align-items: center;
       transition: 0.5s ease-in-out;
 
+      &:hover {
+      background-color: ${({ theme }) => (theme === 'dark' ? '#0B93F6' : '#0B93F6')};
+    }
       .avatar {
         img {
           height: 3rem;
@@ -145,8 +148,9 @@ const Container = styled.div`
   }
 
   .current-user {
-    background-color: ${({ theme }) => (theme === 'dark' ? '#0d0d30' : '#f0f0f0')};
+    background-color: ${({ theme }) => (theme === 'dark' ? '#333' : '#ddd')};
     display: flex;
+    border-radius:7px;
     justify-content: center;
     align-items: center;
     gap: 2rem;

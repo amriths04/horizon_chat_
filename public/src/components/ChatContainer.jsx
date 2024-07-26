@@ -5,8 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
 import { useTheme } from "../ThemeContext";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export default function ChatContainer({ currentChat, socket, clearCurrentChat }) {
   const { theme } = useTheme();

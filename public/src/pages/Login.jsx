@@ -118,7 +118,7 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: ${({ theme }) => (theme === 'dark' ? '#131324' : 'white')};
+  background-color: ${({ theme }) => (theme === 'dark' ? '#081a3f' : 'white')};
 
   .theme-toggle {
     display: flex;
@@ -126,7 +126,8 @@ const FormContainer = styled.div`
     gap: 1rem;
     margin-bottom: 2rem;
     span {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
+      
     }
   }
 
@@ -154,7 +155,7 @@ const FormContainer = styled.div`
   input {
     background-color: transparent;
     padding: 1rem;
-    border: 0.1rem solid ${({ theme }) => (theme === 'dark' ? '#0B93F6' : '#333')};
+    border: 0.1rem solid ${({ theme }) => (theme === 'dark' ? '#0B93F6' : '#0B93F6')};
     border-radius: 0.4rem;
     color: ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
     width: 100%;

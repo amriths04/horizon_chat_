@@ -10,7 +10,7 @@ import Welcome from "../components/Welcome";
 import { useTheme } from "../ThemeContext";
 import Switch from "react-switch";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBackspace } from '@fortawesome/free-solid-svg-icons';
 
 export default function Chat() {
   const navigate = useNavigate();
@@ -91,7 +91,7 @@ export default function Chat() {
         </div>
         {currentChat !== undefined && (
           <div className="go-to-welcome">
-            <FontAwesomeIcon icon={faTimes} onClick={handleCloseClick} />
+            <FontAwesomeIcon icon={faBackspace} onClick={handleCloseClick} />
           </div>
         )}
         <button onClick={handleLogout} className="logout-button">Logout</button>
@@ -126,12 +126,13 @@ const Container = styled.div`
     z-index: 10;
   }
 
-  .theme-toggle {
+    .theme-toggle {
     display: flex;
     align-items: center;
     gap: 0rem;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
+    border-radius: 1.5rem;
+    padding: 0.45rem;
+    border: 0.5px solid ${({ theme }) => (theme === 'dark' ? 'white' : 'black')};
 
     span {
       font-size: 1.5rem;
@@ -142,7 +143,7 @@ const Container = styled.div`
   .go-to-welcome {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Adjusted gap to avoid large spaces */
+    gap: 0rem;
     z-index: 10;
 
     svg {
